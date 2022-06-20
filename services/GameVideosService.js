@@ -70,7 +70,7 @@ class GameVideosService {
         if (index === -1){
             throw boom.notFound('Game Video not found');
         }
-        this.gameVideos.splice(index)
+        this.gameVideos.splice(index,1);
         return {message: true};
 
     }
