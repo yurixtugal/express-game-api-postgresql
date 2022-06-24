@@ -1,29 +1,21 @@
 const myFaker = require ("../Util/faker");
 const boom = require('@hapi/boom');
+const {models } = require('../libs/sequelize')
+
 
 class GenresService {
 
     constructor(){
-        this.genres = [];
-        this.generate();
     }
 
-    generate(){
-        
-        const limit = 20;
-        for (let index = 0; index<limit;index++){
-            this.genres.push({
-                id:    index,
-                name:  myFaker.getGenresNameByID(index)});
-        }
-    }
     
     async find(){
-        return this.genres;
+        const rta = await  models.Genre.findAll();
+        return  rta;
     }
 
     async findOne(id){
-        const genres = this.genres.find(item => item.id === id);
+        const genres = await models.Genre.findByPk(id);
         if (!genres){
             throw boom.notFound('Genres not found'); 
         }

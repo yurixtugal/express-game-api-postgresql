@@ -1,19 +1,21 @@
 const express = require ("express");
 const GameVideosService = require('../services/GameVideosService');
 const {myValidatorHandler} = require('../middlewares/ValidatorHandler');
-const {createGamesVideoSchema, updateGamesVideoSchema, getGamesVideoSchema} = require('../schemas/GamesVideoSchema');
+const {QueryGamesVideoSchema,createGamesVideoSchema, updateGamesVideoSchema, getGamesVideoSchema,createGameVideoGenresSchema,createGameVideoPlatformSchema} = require('../schemas/GamesVideoSchema');
 
 const router = express.Router();
 const gameVideosService = new GameVideosService();
 
-router.get('/',async (req, res)=>{
-    try{
-        const videoGames = await gameVideosService.find();
-        res.json(videoGames);
-    } catch(error){
-        res.status(404).json({message: error.message});
-    }
-});
+router.get('/',
+    myValidatorHandler(QueryGamesVideoSchema,'query'),
+    async (req, res)=>{
+        try{
+            const videoGames = await gameVideosService.find(req.query);
+            res.json(videoGames);
+        } catch(error){
+            res.status(404).json({message: error.message});
+        }
+    });
 
 router.get('/:id',
     myValidatorHandler(getGamesVideoSchema,'params'),
@@ -30,11 +32,39 @@ router.get('/:id',
 
 router.post('/',
     myValidatorHandler(createGamesVideoSchema,'body'),
-    async (req, res)=>{
-        const body = req.body;
-        const newGameVideo = await gameVideosService.create(body);
-        res.status(201).json(newGameVideo);
+    async (req, res,next)=>{
+        try{ 
+            const body = req.body;
+            const newGameVideo = await gameVideosService.create(body);
+            res.status(201).json(newGameVideo);
+        }catch(error){
+            next(error);
+        }
     });
+    
+router.post('/add-gameVideos-genres',
+    myValidatorHandler(createGameVideoGenresSchema,'body'),
+    async (req, res,next)=>{
+        try{
+            const body = req.body;
+            const newGameVideoGenre = await gameVideosService.createGameVideoGenre(body);
+            res.status(201).json(newGameVideoGenre);
+        }catch(error){
+            next(error);
+        }    
+});
+
+router.post('/add-gameVideos-platforms',
+    myValidatorHandler(createGameVideoPlatformSchema,'body'),
+    async (req, res,next)=>{
+        try {
+            const body = req.body;
+            const newGameVideoPlatform = await gameVideosService.createGameVideoPlatform(body);
+            res.status(201).json(newGameVideoPlatform);
+        }catch(error){
+            next(error);
+        }
+});
 
 
 router.patch('/:id',

@@ -1,32 +1,23 @@
 const myFaker = require ("../Util/faker");
 const boom = require('@hapi/boom');
+const {models } = require('../libs/sequelize');
 
 class DevelopersService {
 
     constructor(){
-        this.developers = [];
-        this.generate();
+  
     }
 
-    generate(){
-        
-        const limit = 100;
-        for (let index = 0; index<limit;index++){
-            this.developers.push({
-                id:             index,
-                name:           myFaker.getDeveloperNameByID(index),
-                resume:         myFaker.getDeveloperResumeByID(index),
-                web_site:       myFaker.getDeveloperWebSiteByID(index),
-                creation_date:  1990+index});
-        }
-    }
 
     async find(){
-        return this.developers;
+        const rta = await models.Developer.findAll();
+        return  rta;
     }
 
     async findOne(id){
-        const developer = this.developers.find(item => item.id === id);
+        const developer = models.Developer.findByPk(id,{
+            include:['GameVideo']
+        });
         if (!developer){
             throw boom.notFound('Developer not found'); 
         }

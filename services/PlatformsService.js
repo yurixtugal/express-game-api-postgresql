@@ -1,5 +1,6 @@
 const myFaker = require ("../Util/faker");
 const boom = require('@hapi/boom');
+const {models } = require('../libs/sequelize');
 
 class PlaformsService {
 
@@ -22,11 +23,12 @@ class PlaformsService {
 
 
     async find(){
-        return this.platforms;
+        const rta = await models.Platform.findAll();
+        return  rta;
     }
 
     async findOne(id){
-        const platform = this.platforms.find(item => item.id === id);
+        const platform = await models.Platform.findByPk(id);
         if (!platform){
             throw boom.notFound('Platform not found'); 
         }

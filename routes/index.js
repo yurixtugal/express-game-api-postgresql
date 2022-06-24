@@ -4,6 +4,7 @@ const developersRouter = require('./DevelopersRouter');
 const gameVideoRouter = require('./GameVideosRouter');
 const genresRouter = require('./GenresRouter');
 const platformsRouter = require('./PlatformsRouter');
+const generationsRouter = require('./GenerationsRouter');
 
 const routerApi = (app) =>{
 
@@ -13,6 +14,7 @@ const routerApi = (app) =>{
     router.use('/GameVideos',gameVideoRouter);
     router.use('/Genres',genresRouter);
     router.use('/Platforms',platformsRouter);
+    router.use('/Generations',generationsRouter);
 }
 
 module.exports = routerApi;
