@@ -13,12 +13,12 @@ const option = {
 }
 
 if (config.isProduction){
-    options.ssl = {
+    option.ssl = {
         rejectUnauthorized: false,
     }
 }
 
-const sequelize = new Sequelize(config.dbUrl,{dialect: 'postgres', logging: true,options}); // Example for postgres
+const sequelize = new Sequelize(config.dbUrl,{dialect: 'postgres', logging: true,option}); // Example for postgres
 
 setUpModels(sequelize);
 

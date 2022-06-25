@@ -14,7 +14,7 @@ if (config.isProduction){
 }else{
     USER = encodeURIComponent(config.dbUser);
     PASSWORD = encodeURIComponent(config.dbPassword);
-    URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`
+    URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
     options.connectionString: URI,
 }
 
