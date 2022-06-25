@@ -1,4 +1,3 @@
-const { options } = require('joi');
 const {Sequelize} = require('sequelize');
 const {config} = require('../config/config')
 const setUpModels = require('../db/models')
@@ -7,20 +6,22 @@ const setUpModels = require('../db/models')
 const PASSWORD = encodeURIComponent(config.dbPassword);
 const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`*/
 
-const option = {
+const options = {
     dialect: 'postgres',
-    logging: config.isProduction?false:true
-}
-
-if (config.isProduction){
-    option.ssl = {
-        rejectUnauthorized: false,
+    logging: config.isProd ? false : true,
+  }
+  
+  if (config.isProd) {
+    options.dialectOptions = {
+      ssl: {
+        rejectUnauthorized: false
+      }
     }
-}
+  }
 
-const sequelize = new Sequelize(config.dbUrl,{dialect: 'postgres', logging: true,option}); // Example for postgres
+const sequelize = new Sequelize(config.dbUrl,options); // Example for postgres
 
-console.log(sequelize);
+console.log(options);
 
 setUpModels(sequelize);
 
