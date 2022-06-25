@@ -10,7 +10,7 @@ let options;
 
  
   
-  if (config.isProd) {
+  if (config.isProduction) {
     options = {dialectOptions: {
                 ssl: {
                     require: true,
@@ -29,7 +29,7 @@ const sequelize = new Sequelize(config.dbUrl,options); // Example for postgres
 
 console.log(config.dbUrl);
 console.log(options.dialectOptions);
-console.log(config.isProd);
+console.log(config.isProduction);
 console.log(options);
 
 setUpModels(sequelize);
