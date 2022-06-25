@@ -10,7 +10,9 @@ router.get('/',
     myValidatorHandler(QueryGamesVideoSchema,'query'),
     async (req, res)=>{
         try{
+            console.log("Esto no se hace en produccion");
             const videoGames = await gameVideosService.find(req.query);
+            
             res.json(videoGames);
         } catch(error){
             res.status(404).json({message: error.message});

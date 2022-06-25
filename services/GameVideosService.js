@@ -24,7 +24,7 @@ class GameVideosService {
      }
 
     async find(query){
-        //console.log(models.GameVideo.findAll());
+        console.log("Esto tampoco");
         const options = {
             include: ['Generation','Developer','genres','platforms'],
             where:{}
@@ -37,7 +37,9 @@ class GameVideosService {
         if (developerID){
             options.where.developerID = developerID;
         }
+        console.log("Esto tampoco menos");
         const rta = await models.GameVideo.findAll(options);
+        console.log("Esto tampoco menos menos");
         return  rta;
     }
 
