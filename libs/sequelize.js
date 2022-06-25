@@ -20,6 +20,8 @@ if (config.isProduction){
 
 const sequelize = new Sequelize(config.dbUrl,{dialect: 'postgres', logging: true,option}); // Example for postgres
 
+throw(new Error(sequelize));
+
 setUpModels(sequelize);
 
 //sequelize.sync();
