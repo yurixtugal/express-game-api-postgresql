@@ -28,6 +28,7 @@ let options;
 const sequelize = new Sequelize(config.dbUrl,options); // Example for postgres
 
 console.log(config.dbUrl);
+console.log(options.dialectOptions);
 console.log(options);
 
 setUpModels(sequelize);
