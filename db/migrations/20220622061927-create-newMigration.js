@@ -9,7 +9,7 @@ const {GAMEVIDEO_GENRE_TABLE, GameVideoGenreSchema} = require("../models/GameVid
 const {GAMEVIDEO_PLATFORM_TABLE, GameVideoPlatformSchema} = require("../models/GameVideoPlatformModel");
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up (queryInterface) {
     await queryInterface.createTable(GENRE_TABLE,GenreSchema);
     await queryInterface.createTable(DEVELOPER_TABLE,DeveloperSchema);
     await queryInterface.createTable(PLATFORM_TABLE,PlatformSchema);
@@ -20,7 +20,7 @@ module.exports = {
     
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface) {
     await queryInterface.dropTable(GENRE_TABLE);
     await queryInterface.dropTable(DEVELOPER_TABLE);
     await queryInterface.dropTable(PLATFORM_TABLE);
