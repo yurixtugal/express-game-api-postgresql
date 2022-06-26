@@ -10,12 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/',(req, res)=>{
-    res.send(`This is a mock API of videogames, use it<br/>
-                -  API/v1/GameVideos<br/>
-                -  API/v1/Developers<br/>
-                -  API/v1/Platforms<br/>
-                -  API/v1/Platforms<br/>
-              Comming soon integration with Postgresql  `);
+    res.sendFile('index.html', {root: __dirname })
 });
 
 app.get('/nueva-ruta',(req, res)=>{
