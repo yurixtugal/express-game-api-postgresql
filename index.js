@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/',(req, res)=>{
-    res.sendFile('index.html', {root: __dirname })
+    res.sendFile('/public/index.html', {root: __dirname });
 });
 
 app.get('/nueva-ruta',(req, res)=>{
@@ -28,3 +28,4 @@ app.use(logErrors);
 app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
+app.use(express.static(__dirname + '/public'));
